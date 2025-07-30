@@ -1,0 +1,5 @@
+{
+    "python.defaultInterpreterPath": "/home/rocco/.local/share/virtualenvs/sms-to-llm-gateway-pZWCT6ww/bin/python",
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "python-envs.pythonProjects": [],
+}
