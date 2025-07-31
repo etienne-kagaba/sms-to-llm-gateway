@@ -1,0 +1,31 @@
+networks:
+  smstollm-network:
+    driver: bridge
+
+services:
+  web01:
+    image: kagaba/smstollm:v1
+    env_file: .env
+    networks:
+      - smstollm-network
+    restart: unless-stopped
+
+  web02:
+    image: kagaba/smstollm:v1
+    env_file: .env
+    networks:
+      - smstollm-network
+    restart: unless-stopped
+
+  lb01:
+    image: haproxy:alpine
+    depends_on:
+      - web01
+      - web02
+    networks:
+      - smstollm-network
+    ports:
+      - "8080:80"
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg:ro
+    restart: unless-stopped
