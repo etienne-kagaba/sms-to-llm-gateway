@@ -1,6 +1,8 @@
-from app.utils.llm import genai
+from app.utils.llm import genai, openai
 from app.services.conversation_service import get_recent_conversations
 from sqlalchemy.ext.asyncio import AsyncSession
+import asyncio
+from functools import partial
 
 
 SYSTEM_PROMPT = """ # noqa: E501
@@ -32,6 +34,28 @@ User's Current Message
     model = genai.GenerativeModel("gemini-1.5-flash")
     response = model.generate_content(prompt)
     return response.text
+
+
+async def get_openai_response(message: str, context: str = "") -> str:
+    prompt = f"""
+Context:
+{context}
+---
+
+User's Current Message:
+{message}"""
+
+    response = await asyncio.to_thread(partial(
+        openai.chat.completions.create,
+        model="gpt-4",
+        messages=[
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.7
+    ))
+
+    return response.choices[0].message.content.strip()
 
 
 async def get_context(db: AsyncSession, phone_number: str) -> str:

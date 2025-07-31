@@ -4,6 +4,9 @@ networks:
 
 services:
   web01:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: kagaba/smstollm:v1
     env_file: .env
     networks:
@@ -11,6 +14,9 @@ services:
     restart: unless-stopped
 
   web02:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: kagaba/smstollm:v1
     env_file: .env
     networks:

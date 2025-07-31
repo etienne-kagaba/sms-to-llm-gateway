@@ -34,7 +34,10 @@ async def validate_request(request: Request):
         digestmod=hashlib.sha256,
     ).hexdigest()
 
-    if hmac.compare_digest(computed_signature.lower(), x_signature.lower()):
+    if not hmac.compare_digest(
+        computed_signature.lower(),
+        x_signature.lower()
+    ):
         return Response("Invalid signature", status_code=401)
 
     try:

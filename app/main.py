@@ -19,7 +19,7 @@ from contextlib import asynccontextmanager
 from app.utils.validation import validate_android
 from app.services.sms_service import send_sms
 from app.services.conversation_service import save_conversation
-from app.services.llm_service import get_context, get_gemini_response
+from app.services.llm_service import get_context, get_openai_response
 
 
 @asynccontextmanager
@@ -98,7 +98,7 @@ async def sms_webhook(
     try:
         context = await get_context(db, phone_number)
 
-        gemini_response = await get_gemini_response(message, context)
+        ai_response = await get_openai_response(message, context)
 
         credentials = (f"{SMS_GATEWAY_PUBLIC_USER}:"
                        f"{SMS_GATEWAY_PUBLIC_PASSWORD}")
@@ -110,7 +110,7 @@ async def sms_webhook(
 
         send_result = await send_sms(
             phone_number,
-            gemini_response,
+            ai_response,
             auth_url=auth_header
         )
 
@@ -121,7 +121,7 @@ async def sms_webhook(
             db,
             phone_number,
             message,
-            gemini_response,
+            ai_response,
             language="en",
         )
 
@@ -129,13 +129,13 @@ async def sms_webhook(
             {
                 "status": "success",
                 "message": "SMS sent successfully",
-                "geminiResponse": gemini_response,
+                "aiResponse": ai_response,
             },
             status_code=status.HTTP_200_OK,
         )
 
     except Exception as e:
-        logger.error(f"Error processing request: {e}")
+        logger.error(f"Error processing request: {e.args[0]}")
         return Response(
             "Internal server error",
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

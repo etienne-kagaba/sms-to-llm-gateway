@@ -1,6 +1,6 @@
 # 📡 smstollm
 
-**smstollm** is a lightweight FastAPI service that receives SMS messages from an Android device via webhook, sends responses using an LLM (like Gemini), and returns them via SMS. The app is containerized and designed to run on distributed hosts behind a load balancer.
+**smstollm** is a lightweight FastAPI service that receives SMS messages from an Android device via webhook, sends responses using an LLM (like Gemini or ChatGPT), and returns them via SMS. The app is containerized and designed to run on distributed hosts behind a load balancer.
 
 
 ## 📦 Docker Image
@@ -21,7 +21,7 @@ The app uses the following environment variables, passed via a `.env` file or `-
 SMS_GATEWAY_SIGNING_KEY=
 
 # Required for getting AI generated Responses
-GEMINI_API_KEY=
+OPENAI_API_KEY=
 
 # Required to avoid infinite loop of AI texting itself
 CURRENT_PHONE=

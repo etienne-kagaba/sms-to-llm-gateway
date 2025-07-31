@@ -12,6 +12,7 @@ google-generativeai = "*"
 httpx = "*"
 sqlalchemy = {extras = ["asyncio"], version = "*"}
 python-dotenv = "*"
+openai = "*"
 
 [dev-packages]
 
