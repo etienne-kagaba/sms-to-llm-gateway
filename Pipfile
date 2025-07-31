@@ -6,6 +6,12 @@ name = "pypi"
 [packages]
 fastapi = "*"
 uvicorn = {extras = ["standard"], version = "*"}
+databases = {extras = ["asyncpg"], version = "*"}
+asyncpg = "*"
+google-generativeai = "*"
+httpx = "*"
+sqlalchemy = {extras = ["asyncio"], version = "*"}
+python-dotenv = "*"
 
 [dev-packages]
 

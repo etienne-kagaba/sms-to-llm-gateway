@@ -1,0 +1,11 @@
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+
+SMS_GATEWAY_SIGNING_KEY = os.getenv("SMS_GATEWAY_SIGNING_KEY")
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+CURRENT_PHONE = os.getenv("CURRENT_PHONE")
+SMS_GATEWAY_PUBLIC_USER = os.getenv("SMS_GATEWAY_PUBLIC_USER")
+SMS_GATEWAY_PUBLIC_PASSWORD = os.getenv("SMS_GATEWAY_PUBLIC_PASSWORD")
+DATABASE_URL = os.getenv("DATABASE_URL")
